@@ -32,4 +32,32 @@ def requestMatch(region, accountID, APIKey):
     response = requests.get(URL)
     return response.json()
 
+def numToEnglish(region,accountID, APIKey):
+    "translate the championID into the champion's name"
+    continue
+
+def parseChamps(region,accountID,APIKey,matches):
+    '''With the match list, the player's games will be seperated based on
+    champion'''
+    continue
+
+def basicStats(region, accountID, APIKey):
+    '''calculate the avg stats of each champion'''
+    continue
+
+def statsWithDuo(region, accountID, APIKey):
+    '''If the selected summoner plays with another player constantly,
+        it'll keep track of what their stats are like together.'''
+    continue
+
+def firstBlood(region, accountID, APIKey):
+    ''' '''
+    continue
 main()
+
+'''
+   Author: Vincent Truong
+   Collaborators: David Grozier
+   Start Date: 9/6/2019
+   Last Updated: 9/16/2019
+'''
