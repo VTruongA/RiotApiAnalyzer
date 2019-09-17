@@ -21,7 +21,7 @@ class summoner:
 def main():
     region = "na"
     summonerName = "Cute Raichu"
-    APIKey = "RGAPI-95bd6407-a1ef-4e4b-ac87-9f39d38e23d4"
+    APIKey = ""
     
     summonerJson = requestData(region, summonerName, APIKey)
     currentSum = summoner(summonerJson['name'],summonerJson['id'],summonerJson['accountId'])
@@ -30,7 +30,6 @@ def main():
 
     #only ranked matches right now
     matches = requestMatch(region, currentSum.get_accountID(), APIKey, ddragonJson,currentSum.get_name())
-    print(matches)
 
 def requestData(region, summonerName, APIKey):
     URL = "https://" + region + "1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" + \
