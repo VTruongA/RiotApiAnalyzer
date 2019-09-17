@@ -7,7 +7,7 @@ def main():
     #APIKey = input("Paste the API key: ")
     region = "na"
     summonerName = "Cute Raichu"
-    APIKey = "RGAPI-74765c03-82e0-4bfa-a0e0-945c8f45cd12"
+    APIKey = ""
     jsonFile = requestData(region, summonerName, APIKey)
     print(jsonFile)
     matches = requestMatch(region, jsonFile["accountId"], APIKey)
