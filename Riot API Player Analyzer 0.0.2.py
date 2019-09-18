@@ -1,23 +1,6 @@
 import requests
 import time
 
-class summoner:
-
-    def __init__(self,name,summonerID, accountID):
-        self._name = name
-        self._summonerID = summonerID
-        self._accountID = accountID
-
-    def get_name(self):
-        return self._name
-
-    def get_summonerID(self):
-        return self._summonerID
-
-    def get_accountID(self):
-        return self._accountID
-
-
 def main():
     region = "na"
     summonerName = "Cute Raichu"
@@ -55,15 +38,16 @@ def requestMatch(region, accountID, APIKey, ddragonJson,name):
 
     return champPlayed
 
-
-def champIdTranslator(region,accountID, matchesJSON, championJSON):
+def champIdTranslator(region,accountID, APIKey, matchesJSON):
     "translate the championID into the champion's name"
-    #print(championJSON)
+    championJSON = requests.get("http://ddragon.leagueoflegends.com/cdn/9.18.1/data/en_US/champion.json").json()
+    
+    # establishes a new dict and creates pairs ex: {111: 'Nautilus'}
     id2ChampDict = {}
     for champion in championJSON['data']:
         id2ChampDict[int(championJSON['data'][champion]['key'])] = championJSON['data'][champion]['id']
 
-    # id2ChampDict is now key: id, value: champion name
+    # updates the 'champion' value in the match JSON with a string name ex: 'Aatrox'
     for match in matchesJSON['matches']:
         champ_id = match['champion']
         match['champion'] = id2ChampDict[champ_id]
@@ -75,7 +59,6 @@ def parseChamps(matchList,champPlayed, APIKey, name ):
         if games['champion'] not in champPlayed: #if a champion hasn't been played yet, then it will be added to the dictionary
             champPlayed[games['champion']] = {'totalK':0,'totalD':0,'totalA':0,"totalGames":0}
         currGameStats = basicStats(games['gameId'], APIKey, name, games['champion'],champPlayed) #adds the stats from this game into the respective champion's value
-    
 
 def basicStats(gameId, APIKey, name, champName, champPlayed):
     '''calculate the avg stats of each champion'''
@@ -92,9 +75,20 @@ def basicStats(gameId, APIKey, name, champName, champPlayed):
     champPlayed[champName]['totalGames'] = champPlayed[champName]['totalGames'] + 1                         #adds total games on that champ
     champPlayed['numOfGames'] = champPlayed['numOfGames'] + 1                                               #adds to the amount of games that has been played since starting date
 
+def statsWithDuo(region, accountID, APIKey):
+    '''If the selected summoner plays with another player constantly,
+        it'll keep track of what their stats are like together.'''
+    pass
+
+def firstBlood(region, accountID, APIKey):
+    ''' '''
+    pass
+
 main()
 
 '''
-   Author: Vincent Truong, Riley Simpson, David Grozier
-   Last Updated: 9/17/2019
+   Author: Vincent Truong
+   Collaborators: David Grozier, Riley Simpson
+   Start Date: 9/6/2019
+   Last Updated: 9/16/2019
 '''
